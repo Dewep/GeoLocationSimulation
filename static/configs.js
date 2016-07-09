@@ -12,7 +12,7 @@ var configs = {
         bearing: 90.0,
         angle: 25
     },
-    simulations_types: ["stop", "spinAround", "walk", "run", "bike"],
+    simulations_types: ["stop", "spinAround", "walk", "run", "bike", "car", "plane"],
     simulations: {
         default: {
             name: "Default",
@@ -21,7 +21,7 @@ var configs = {
                     default: null,
                     decimal: 1,
                     min: 0.0,
-                    max: 150.0,
+                    max: 1200.0,
                     circular: false
                 },
                 maxDifference: 5.0,
@@ -40,8 +40,8 @@ var configs = {
                 },
                 maxDifference: 0.001,
                 precision: {
-                    limit: 0.0002,
-                    margin: 0.0001
+                    limit: 0.00002,
+                    margin: 0.00001
                 }
             },
             longitude: {
@@ -54,8 +54,8 @@ var configs = {
                 },
                 maxDifference: 0.002,
                 precision: {
-                    limit: 0.0004,
-                    margin: 0.0002
+                    limit: 0.00004,
+                    margin: 0.00002
                 }
             },
             altitude: {
@@ -96,8 +96,8 @@ var configs = {
                 },
                 maxDifference: 90.0,
                 precision: {
-                    limit: 80.0,
-                    margin: 20.0
+                    limit: 10.0,
+                    margin: 3.0
                 }
             },
             angle: {
@@ -157,8 +157,8 @@ var configs = {
             },
             bearing: {
                 precision: {
-                    limit: 40.0,
-                    margin: 10.0
+                    limit: 180.0,
+                    margin: 90.0
                 }
             },
             angle: {
@@ -228,6 +228,35 @@ var configs = {
                 precision: {
                     limit: 60,
                     margin: 30
+                }
+            }
+        },
+        car: {
+            name: "Car",
+            speed: {
+                value: {
+                    default: 100.0
+                },
+                precision: {
+                    limit: 20.0,
+                    margin: 5.0
+                }
+            },
+            angle: {
+                value: {
+                    default: 160
+                }
+            }
+        },
+        plane: {
+            name: "Plane",
+            speed: {
+                value: {
+                    default: 900.0
+                },
+                precision: {
+                    limit: 150.0,
+                    margin: 50.0
                 }
             }
         }

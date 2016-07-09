@@ -18,10 +18,12 @@
             </div>
             <div class="panel-body text-center">
                 <div class="row">
-                    <div class="btn-group btn-group-lg" role="group">
+                    <div class="btn-group btn-group-md" role="group">
                         <button type="button" class="btn btn-success" data-simulation-type="walk">Walk</button>
                         <button type="button" class="btn btn-success" data-simulation-type="run">Run</button>
                         <button type="button" class="btn btn-success" data-simulation-type="bike">Bike</button>
+                        <button type="button" class="btn btn-success" data-simulation-type="car">Car</button>
+                        <button type="button" class="btn btn-success" data-simulation-type="plane">Plane</button>
                         <button type="button" class="btn btn-warning" data-simulation-type="spinAround">Spin around</button>
                         <button type="button" class="btn btn-danger" data-simulation-type="stop">Stop</button>
                     </div>
@@ -58,5 +60,6 @@
     <script src="/static/configs.js"></script>
     <script src="/static/lib.js"></script>
     <script src="/static/main.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVqgaQwRFo-l0r2q1Fk7My6cwBLGAuTuE&callback=Lib.initMap" async defer></script>
 </body>
 </html>

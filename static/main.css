@@ -1,28 +1,10 @@
+html, body, #map {
+    height: 100%;
+}
+
 #panel {
     width: 450px;
     position: fixed;
     top: 15px;
     left: 15px;
-}
-
-#angle-slider .rs-range-color  {
-    background-color: #33B5E5;
-}
-#angle-slider .rs-path-color  {
-    background-color: #C2E9F7;
-}
-#angle-slider .rs-handle  {
-    background-color: #C2E9F7;
-    padding: 7px;
-    border: 2px solid #C2E9F7;
-}
-#angle-slider .rs-handle.rs-focus  {
-    border-color: #33B5E5;
-}
-#angle-slider .rs-handle:after  {
-    border-color: #33B5E5;
-    background-color: #33B5E5;
-}
-#angle-slider .rs-border  {
-    border-color: transparent;
 }

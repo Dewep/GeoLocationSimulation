@@ -14,9 +14,12 @@ $(function($) {
         configs.simulations[index] = $.extend(true, {}, configs.simulations.default, configs.simulations[index]);
     }
 
-    window.current_simulation_type = configs.simulations_types[0];
+    window.current_simulation_type = null;
     window.values = $.extend(true, {}, configs.defaultValues);
+    window.targetValues = $.extend(true, {}, configs.defaultValues);
 
+    $("[data-value=bearing]").val(window.targetValues.bearing).change();
+    $("[data-value=angle]").val(window.targetValues.angle).change();
     $(".knob").knob();
 
     $("[data-simulation-type]").click(function() {
@@ -25,5 +28,7 @@ $(function($) {
     });
 
     Lib.updateValues();
+
+    setInterval(Lib.computeNextPosition, 1000);
 
 });
