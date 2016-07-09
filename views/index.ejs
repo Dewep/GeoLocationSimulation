@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="shortcut icon" href="/static/favicon.png" type="image/png">
+    <title>GeoLocation Simulation</title>
+    <!--[if ie]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+</head>
+<body>
+    <div id="map"></div>
+    <div id="panel">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">GeoLocation Simulation</h3>
+            </div>
+            <div class="panel-body text-center">
+                <div class="row">
+                    <div class="btn-group btn-group-lg" role="group">
+                        <button type="button" class="btn btn-success" data-simulation-type="walk">Walk</button>
+                        <button type="button" class="btn btn-success" data-simulation-type="run">Run</button>
+                        <button type="button" class="btn btn-success" data-simulation-type="bike">Bike</button>
+                        <button type="button" class="btn btn-warning" data-simulation-type="spinAround">Spin around</button>
+                        <button type="button" class="btn btn-danger" data-simulation-type="stop">Stop</button>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2">
+                        <input id="bearing-slider" class="knob" data-width="100" data-height="100" data-min="0" data-max="360" data-skin="tron" data-thickness=".1" data-angleOffset="180" value="180" data-value="bearing"/><br/>
+                        Bearing
+                    </div>
+                    <div class="col-md-4">
+                        <input id="angle-slider" class="knob" data-width="100" data-height="100" data-min="0" data-max="360" data-skin="tron" data-thickness=".1" data-angleOffset="180" value="180" data-value="angle"/><br/>
+                        Angle
+                    </div>
+                </div>
+                <br/>
+                <table class="table table-bordered table-condensed">
+                    <tbody>
+                        <tr><th>Speed</th><td data-text="speed"></td></tr>
+                        <tr><th>Latitude</th><td data-text="latitude"></td></tr>
+                        <tr><th>Longitude</th><td data-text="longitude"></td></tr>
+                        <tr><th>Altitude</th><td data-text="altitude"></td></tr>
+                        <tr><th>Accuracy</th><td data-text="accuracy"></td></tr>
+                        <tr><th>Bearing</th><td data-text="bearing"></td></tr>
+                        <tr><th>Angle</th><td data-text="angle"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="/static/jquery.knob.min.js"></script>
+    <script src="/static/configs.js"></script>
+    <script src="/static/lib.js"></script>
+    <script src="/static/main.js"></script>
+</body>
+</html>
