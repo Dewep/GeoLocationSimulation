@@ -8,19 +8,23 @@ Number.prototype.toDeg = function() {
     return this * 180 / Math.PI;
 }
 
-Lib.sendValues = function(data) {
-    console.log("sendValues", data);
+Lib.sendValues = function(data_values) {
+    window.socket.emit('geoloc-send', {
+        simulationIdentifier: window.simulationIdentifier,
+        data: data_values
+    });
 };
 
 Lib.updateValues = function(doNotSend) {
-    var data = $.extend(true, {}, window.values);
+    var data = $.extend(true, {}, window.targetValues);
 
     for (var field in data) {
         var simulation_type = window.current_simulation_type || "default";
-        data[field] = data[field].toFixed(configs.simulations[simulation_type][field].value.decimal);
+        if (typeof(data[field]) == "number") {
+            data[field] = data[field].toFixed(configs.simulations[simulation_type][field].value.decimal);
+        }
 
         $("[data-text=" + field + "]").text(data[field]);
-        //$("[data-value=" + field + "]").val(data[field]).change();
     }
 
     $("[data-simulation-type]").removeClass("active");
@@ -30,8 +34,8 @@ Lib.updateValues = function(doNotSend) {
 
     if (window.current_marker) {
         window.current_marker.setPosition({
-            lat: window.values.latitude,
-            lng: window.values.longitude
+            lat: parseFloat(window.values.latitude),
+            lng: parseFloat(window.values.longitude)
         });
     }
 
@@ -88,7 +92,7 @@ Lib.computeNextPosition = function() {
         window.targetValues.angle = parseInt($("#angle-slider").val());
         Lib.valueSelection("angle");
 
-        var destination = Lib.destinationPoint(window.targetValues.latitude, window.targetValues.longitude, window.values.bearing, window.values.speed / 3600);
+        var destination = Lib.destinationPoint(window.targetValues.latitude, window.targetValues.longitude, window.values.bearing, window.values.speed / 3600 / (1000 / window.configs.update_interval));
         if (destination) {
             window.targetValues.latitude = destination.latitude;
             window.targetValues.longitude = destination.longitude;

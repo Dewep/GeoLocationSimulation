@@ -9,6 +9,8 @@ angle (0° ; 359°)
 
 $(function($) {
 
+    window.socket = io();
+
     for (var type in configs.simulations_types) {
         var index = configs.simulations_types[type];
         configs.simulations[index] = $.extend(true, {}, configs.simulations.default, configs.simulations[index]);
@@ -22,13 +24,34 @@ $(function($) {
     $("[data-value=angle]").val(window.targetValues.angle).change();
     $(".knob").knob();
 
-    $("[data-simulation-type]").click(function() {
-        window.current_simulation_type = $(this).attr("data-simulation-type");
-        Lib.updateValues(true);
-    });
+    if (window.simulationIdentifier) {
 
-    Lib.updateValues();
+        $("[data-text=simulationIdentifier]").text("READ-ONLY " + window.simulationIdentifier);
+        $("[data-href-simulation=simulationIdentifier]").attr("href", "/simulation-" + window.simulationIdentifier);
+        $("[data-simulation-type]").addClass("disabled").attr("disabled", "disabled");
 
-    setInterval(Lib.computeNextPosition, 1000);
+        window.socket.emit("register", window.simulationIdentifier);
+
+        window.socket.on("geoloc", function (data) {
+            window.values = data;
+            Lib.updateValues(true);
+        });
+
+    } else {
+
+        window.simulationIdentifier = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+        $("[data-text=simulationIdentifier]").text(window.simulationIdentifier);
+        $("[data-href-simulation=simulationIdentifier]").attr("href", "/simulation-" + window.simulationIdentifier);
+
+        $("[data-simulation-type]").click(function() {
+            window.current_simulation_type = $(this).attr("data-simulation-type");
+            Lib.updateValues(true);
+        });
+
+        Lib.updateValues();
+
+        setInterval(Lib.computeNextPosition, window.configs.update_interval);
+
+    }
 
 });

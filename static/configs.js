@@ -1,4 +1,5 @@
 var configs = {
+    update_interval: 50,
     components: {
         gps: true,
         accelerometer: true
@@ -8,7 +9,7 @@ var configs = {
         latitude: 47.7696790,
         longitude: 6.2900230,
         altitude: 278,
-        accuracy: 20,
+        accuracy: 1,
         bearing: 90.0,
         angle: 25
     },
@@ -74,7 +75,7 @@ var configs = {
             },
             accuracy: {
                 value: {
-                    default: 20,
+                    default: 1,
                     decimal: 0,
                     min: 0,
                     max: 200,
@@ -82,8 +83,8 @@ var configs = {
                 },
                 maxDifference: 200,
                 precision: {
-                    limit: 200,
-                    margin: 50
+                    limit: 10,
+                    margin: 2
                 }
             },
             bearing: {
@@ -96,8 +97,8 @@ var configs = {
                 },
                 maxDifference: 90.0,
                 precision: {
-                    limit: 10.0,
-                    margin: 3.0
+                    limit: 8.0,
+                    margin: 1.0
                 }
             },
             angle: {
@@ -129,8 +130,8 @@ var configs = {
             },
             bearing: {
                 precision: {
-                    limit: 20.0,
-                    margin: 5.0
+                    limit: 15.0,
+                    margin: 3.0
                 }
             },
             angle: {
@@ -158,7 +159,7 @@ var configs = {
             bearing: {
                 precision: {
                     limit: 180.0,
-                    margin: 90.0
+                    margin: 10.0
                 }
             },
             angle: {

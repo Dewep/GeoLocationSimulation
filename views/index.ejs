@@ -42,6 +42,7 @@
                 <br/>
                 <table class="table table-bordered table-condensed">
                     <tbody>
+                        <tr><th>Simulation ID</th><td><a href="#" data-href-simulation="simulationIdentifier"><span data-text="simulationIdentifier"></span></a></td></tr>
                         <tr><th>Speed</th><td data-text="speed"></td></tr>
                         <tr><th>Latitude</th><td data-text="latitude"></td></tr>
                         <tr><th>Longitude</th><td data-text="longitude"></td></tr>
@@ -54,8 +55,10 @@
             </div>
         </div>
     </div>
+    <script>window.simulationIdentifier = <%= simulationIdentifier %>;</script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/static/jquery.knob.min.js"></script>
     <script src="/static/configs.js"></script>
     <script src="/static/lib.js"></script>

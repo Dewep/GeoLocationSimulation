@@ -1,0 +1,10 @@
+{
+  "name": "geo-location-simulation",
+  "version": "0.1.0",
+  "description": "GeoLocation Simulation",
+  "dependencies": {
+    "ejs": "^2.4.2",
+    "express": "^4.10.2",
+    "socket.io": "^1.4.8"
+  }
+}
