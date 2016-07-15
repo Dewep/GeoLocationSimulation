@@ -9,6 +9,10 @@ Number.prototype.toDeg = function() {
 }
 
 Lib.sendValues = function(data_values) {
+    var random_value = Math.random();
+    if (window.configs.simulations[window.current_simulation_type || "default"].rateUpdate < Math.random()) {
+        return;
+    }
     window.socket.emit('geoloc-send', {
         simulationIdentifier: window.simulationIdentifier,
         data: data_values
@@ -16,7 +20,7 @@ Lib.sendValues = function(data_values) {
 };
 
 Lib.updateValues = function(doNotSend) {
-    var data = $.extend(true, {}, window.targetValues);
+    var data = $.extend(true, {}, window.values);
 
     for (var field in data) {
         var simulation_type = window.current_simulation_type || "default";
@@ -66,17 +70,17 @@ Lib.destinationPoint = function(origin_latitude, origin_longitude, bearing, dist
 };
 
 Lib.valueSelection = function(field) {
-    var config = window.configs.simulations[window.current_simulation_type][field];
+    var config = window.configs.simulations[window.current_simulation_type || "default"][field];
     var min_value = Math.max(config.value.min, window.targetValues[field] - config.precision.limit);
     var max_value = Math.min(config.value.max, window.targetValues[field] + config.precision.limit);
 
-    if (window.values[field] + config.precision.margin < min_value) {
+    if (window.values[field] + (config.precision.margin / window.configs.amplificationFactor) < min_value) {
         window.values[field] = min_value;
-    } else if (window.values[field] - config.precision.margin > max_value) {
+    } else if (window.values[field] - (config.precision.margin / window.configs.amplificationFactor) > max_value) {
         window.values[field] = max_value;
     } else {
-        min_value = Math.max(window.values[field] - config.precision.margin, min_value);
-        max_value = Math.min(window.values[field] + config.precision.margin, max_value);
+        min_value = Math.max(window.values[field] - (config.precision.margin / window.configs.amplificationFactor), min_value);
+        max_value = Math.min(window.values[field] + (config.precision.margin / window.configs.amplificationFactor), max_value);
         window.values[field] = Math.random() * (max_value - min_value) + min_value;
     }
 };
@@ -92,7 +96,7 @@ Lib.computeNextPosition = function() {
         window.targetValues.angle = parseInt($("#angle-slider").val());
         Lib.valueSelection("angle");
 
-        var destination = Lib.destinationPoint(window.targetValues.latitude, window.targetValues.longitude, window.values.bearing, window.values.speed / 3600 / (1000 / window.configs.update_interval));
+        var destination = Lib.destinationPoint(window.targetValues.latitude, window.targetValues.longitude, window.values.bearing, window.values.speed / 3600 / window.configs.amplificationFactor);
         if (destination) {
             window.targetValues.latitude = destination.latitude;
             window.targetValues.longitude = destination.longitude;
@@ -130,5 +134,13 @@ Lib.initMap = function() {
 
     window.map.addListener('click', function(event) {
         Lib.updateBearing(event.latLng.lat(), event.latLng.lng());
+    });
+
+    window.map.addListener('rightclick', function(event) {
+        window.targetValues.latitude = event.latLng.lat();
+        window.targetValues.longitude = event.latLng.lng();
+        Lib.valueSelection("latitude");
+        Lib.valueSelection("longitude");
+        Lib.updateValues(true);
     });
 };

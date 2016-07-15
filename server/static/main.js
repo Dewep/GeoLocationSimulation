@@ -17,8 +17,12 @@ $(function($) {
     }
 
     window.current_simulation_type = null;
-    window.values = $.extend(true, {}, configs.defaultValues);
-    window.targetValues = $.extend(true, {}, configs.defaultValues);
+    var defaultValues = configs.defaultValues;
+    if (localStorage && localStorage.targetValues) {
+        defaultValues = JSON.parse(localStorage.targetValues);
+    }
+    window.targetValues = $.extend(true, {}, defaultValues);
+    window.values = $.extend(true, {}, window.targetValues);
 
     $("[data-value=bearing]").val(window.targetValues.bearing).change();
     $("[data-value=angle]").val(window.targetValues.angle).change();
@@ -50,8 +54,20 @@ $(function($) {
 
         Lib.updateValues();
 
-        setInterval(Lib.computeNextPosition, window.configs.update_interval);
+        setInterval(Lib.computeNextPosition, 1000 / window.configs.amplificationFactor);
 
     }
+
+    $("#recenter").click(function(){
+        window.map.panTo(new google.maps.LatLng(window.values.latitude, window.values.longitude));
+        return false;
+    });
+
+    $("#save").click(function(){
+        if (localStorage) {
+            localStorage.targetValues = JSON.stringify(window.targetValues);
+        }
+        return false;
+    });
 
 });

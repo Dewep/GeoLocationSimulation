@@ -1,5 +1,5 @@
 var configs = {
-    update_interval: 50,
+    amplificationFactor: 2,
     components: {
         gps: true,
         accelerometer: true
